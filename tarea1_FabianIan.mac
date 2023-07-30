@@ -1,0 +1,27 @@
+/*
+*Fabián Araya Ortega - 2019159110
+*Ian Coto Soto - 2021121435
+*/
+/*
+eliminaMultiploLista():=block
+(
+
+);
+cribaAux(lista, listaRespuesta, nBase):=block
+(
+	if lista=[] then
+		listaRespuesta
+	else
+		append(listaRespuesta, [nBase]),
+		lista=eliminaMultiploLista(nBase, lista),
+		print(lista),
+		cribaAux(lista, listaRespuesta, first(lista))
+);
+
+criba(n):=block
+(
+	lista=makelist(i,i,2,n),
+	return (cribaAux(lista, [], 2)
+);
+*/
+	
