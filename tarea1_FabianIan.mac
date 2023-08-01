@@ -3,31 +3,35 @@
 *Ian Coto Soto - 2021121435
 */
 
+criba(n):=block
+(
+	lista:makelist(i,i,2,n),
+	cribaAux(lista, [], 2)
+);
+
+cribaAux(lista, listaRespuesta, nBase):=block
+(
+	if lista=[] then
+		return(listaRespuesta)
+	else
+		listaRespuesta:append(listaRespuesta, [nBase]),
+		lista:eliminaMultiploLista(nBase, lista),
+		print(lista),
+		if lista=[] then
+			cribaAux(lista, listaRespuesta, -1)
+		else
+			cribaAux(lista, listaRespuesta, first(lista))
+);
+
 eliminaMultiploLista(numero, lista):=block
 (
 	for i in lista do
 	(
-		if remainder (i,numero)=0 then
-			delete(i, lista)
+		if remainder (i,numero)=0 then block
+		(
+			lista:delete(i, lista)
+		)
 	),
 	return (lista)
 	
 );
-cribaAux(lista, listaRespuesta, nBase):=block
-(
-	if lista=[] then
-		listaRespuesta
-	else
-		append(listaRespuesta, [nBase]),
-		lista:eliminaMultiploLista(nBase, lista),
-		print(lista),
-		cribaAux(lista, listaRespuesta, first(lista))
-);
-
-criba(n):=block
-(
-	lista:makelist(i,i,2,n),
-	return (cribaAux(lista, [], 2))
-);
-
-	
