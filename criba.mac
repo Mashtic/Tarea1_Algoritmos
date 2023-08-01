@@ -1,0 +1,45 @@
+/***********
+* 01 Tarea Wxmaxima
+
+* Integrantes:
+* 2021121435 - Ian Steven Coto Soto
+*  - Fabián Araya
+***********/
+
+/* Funciones */
+
+/* 
+* Función: hacer una lista de enteros de 2 hasta n
+* Entrada: n: fin de la lista (entero)
+* Salida: números de 2 hasta n (lista)
+*/
+hacerLista(n):=makelist(i,i,2,n); 
+
+/* 
+* Función: comprobar si un número es divisible por otro
+* Entrada: n: número a comprobar si es divisible(entero)
+		   div: divisor (entero)
+* Salida: true si es divisible (boolean)
+*/
+esDivisible(n, div):=is(equal(remainder(n, div), 0));
+
+/* 
+* Función: devuelve una lista con números primos hasta el número 'limLista'
+		   utilizando la criba de Erastótenes
+* Entrada: n: número al que llega la lista como máximo
+* Salida: primos: números primos hasta n(lista)
+*/
+
+criba(limLista):=block
+(
+	primos:hacerLista(limLista),
+	for div in primos do
+	(
+		for n in primos do
+		(
+			if (n#div and esDivisible(n, div)) then
+				primos:delete(n, primos)
+		)
+	),
+	return(primos)
+);
