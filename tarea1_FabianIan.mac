@@ -1,14 +1,46 @@
 /*
+* 01 Tarea Wxmaxima
+
 *Fabián Araya Ortega - 2019159110
 *Ian Coto Soto - 2021121435
 */
 
+/* Funciones */
+
+/* 
+* Función: hacer una lista de enteros de 2 hasta n
+* Entrada: n: fin de la lista (entero)
+* Salida: números de 2 hasta n (lista)
+*/
+hacerLista(n):=makelist(i,i,2,n); 
+
+/* 
+* Función: comprobar si un número es divisible por otro
+* Entrada: n: número a comprobar si es divisible(entero)
+		   div: divisor (entero)
+* Salida: true si es divisible (boolean)
+*/
+esDivisible(n, div):=is(equal(remainder(n, div), 0));
+
+/* 
+* Función: devuelve una lista con números primos hasta el número 'n'
+		   utilizando la criba de Erastótenes
+* Entrada: n: número al que llega la lista como máximo
+* Salida: lista: números primos hasta n(lista)
+*/
 criba(n):=block
 (
-	lista:makelist(i,i,2,n),
+	lista:hacerLista(n),
 	cribaAux(lista, [], 2)
 );
 
+/* 
+* Función: función auxiliar de criba. Hace el proceso de la criba de forma recursiva
+* Entrada: lista: todos los números
+		   listaRespuesta: la que se va a devolver con solamente primos
+		   nBase: número que va a servir de divisor
+* Salida: listaRespuesta: lista de los números primos
+*/
 cribaAux(lista, listaRespuesta, nBase):=block
 (
 	if lista=[] then
@@ -16,22 +48,26 @@ cribaAux(lista, listaRespuesta, nBase):=block
 	else
 		listaRespuesta:append(listaRespuesta, [nBase]),
 		lista:eliminaMultiploLista(nBase, lista),
-		print(lista),
 		if lista=[] then
 			cribaAux(lista, listaRespuesta, -1)
 		else
 			cribaAux(lista, listaRespuesta, first(lista))
 );
 
-eliminaMultiploLista(numero, lista):=block
+/* 
+* Función: eliminar números si son divisores de div
+* Entrada: lista: números (lista)
+		   div: divisor (entero)
+* Salida: lista: lista con los números ya eliminados
+*/
+eliminaMultiploLista(div, lista):=block
 (
 	for i in lista do
 	(
-		if remainder (i,numero)=0 then block
+		if esDivisible(i, div) then block
 		(
 			lista:delete(i, lista)
 		)
 	),
 	return (lista)
-	
 );
